@@ -1,12 +1,12 @@
 package com.asadbek.videoplayer
 
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import android.os.Build.VERSION.SDK
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
@@ -16,15 +16,13 @@ import android.widget.Button
 import android.widget.MediaController
 import android.widget.Toast
 import android.widget.VideoView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+
 
 class MainActivity2 : AppCompatActivity() {
     lateinit var videoView:VideoView
@@ -34,6 +32,7 @@ class MainActivity2 : AppCompatActivity() {
     lateinit var mediaController: MediaController
     lateinit var storageReference: StorageReference
     lateinit var databaseReference: DatabaseReference
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -71,9 +70,9 @@ class MainActivity2 : AppCompatActivity() {
         uploader.putFile(videoUri!!)
             .addOnSuccessListener {
                 // video yuborilib bo`lgandan so`ng realtimedatabase ga fayl modelini yuborish
-                uploader.downloadUrl.addOnSuccessListener {
+                uploader.downloadUrl.addOnSuccessListener { url ->
                     val key = databaseReference.push().key!!
-                    val videoFile = VideoFile(key,it.toString())
+                    val videoFile = VideoFile(key,url.toString())
                     databaseReference.child(key).setValue(videoFile)
                         .addOnSuccessListener {
                             progressDialog.dismiss()
@@ -123,9 +122,11 @@ class MainActivity2 : AppCompatActivity() {
         startActivityForResult(intent,303)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 303 && resultCode == RESULT_OK){
+            videoUri = data?.data
             videoView.setVideoURI(videoUri) // bu bilan videovidew da video chiqishni boshlaydi
         }
 
