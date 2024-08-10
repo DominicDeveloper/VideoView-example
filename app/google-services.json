@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "167838199996",
+    "firebase_url": "https://videofiles-4b9ba-default-rtdb.firebaseio.com",
+    "project_id": "videofiles-4b9ba",
+    "storage_bucket": "videofiles-4b9ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167838199996:android:6520aeef8f36b3cf45a0b9",
+        "android_client_info": {
+          "package_name": "com.asadbek.videoplayer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCHkb8kM4HzgjKzjIpE_KVKMcVapdjvkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
